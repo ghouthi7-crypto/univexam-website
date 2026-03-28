@@ -1,0 +1,17 @@
+{
+  "backup_timestamp": "2026-03-28T04:27:00.431055+00:00",
+  "backup_date": "2026-03-28",
+  "project": "UNIVEXAM",
+  "supabase_url": "https://trjfjxvdeuwkzufbpqgh.supabase.co",
+  "tables": {
+    "universities": 0,
+    "specialties": 0,
+    "modules": 0,
+    "documents": 0,
+    "moderators": 0,
+    "site_content": 0,
+    "messages": 0,
+    "moderator_applications": 0
+  },
+  "total_rows": 0
+}
