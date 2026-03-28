@@ -1,0 +1,4 @@
+# Cloudflare Pages Redirects
+# Ensure API functions take precedence over the SPA fallback
+/api/*  /api/*  200
+/*      /index.html 200
