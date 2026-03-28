@@ -1,0 +1,68 @@
+name: 🗄️ Daily Supabase Database Backup
+
+on:
+  schedule:
+    # Run every day at 2:00 AM UTC (3:00 AM Algeria time)
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual backup'
+        required: false
+        default: 'Manual backup triggered'
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    name: Backup Supabase to GitHub
+    
+    steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 0
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 📦 Install dependencies
+        run: pip install requests python-dateutil
+
+      - name: 🗄️ Export Supabase Database
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          python scripts/backup_supabase.py
+
+      - name: 📊 Check backup results
+        run: |
+          echo "=== Backup Files ==="
+          ls -la backups/
+          echo "=== Latest Backup ==="
+          ls -la backups/latest/
+
+      - name: 💾 Commit and push backup
+        run: |
+          git config --global user.name "UNIVEXAM Backup Bot"
+          git config --global user.email "backup@univexam.dz"
+          git add backups/
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to backup"
+          else
+            TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
+            git commit -m "🗄️ Auto-backup: $TIMESTAMP"
+            git push
+            echo "✅ Backup committed successfully!"
+          fi
+
+      - name: 📢 Notify on failure
+        if: failure()
+        run: |
+          echo "❌ Backup FAILED at $(date -u)"
+          echo "Check the logs for details"
