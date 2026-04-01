@@ -1,6 +1,6 @@
 /* ========================================
    UNIVEXAM — Mobile Performance Optimizations
-   تحسينات الأداء للجوال
+   تحسينات الأداء للجوال (مع الحفاظ الكامل على التصميم)
    ======================================== */
 
 /* ---- 1. Fast tap response (remove 300ms delay) ---- */
@@ -10,7 +10,9 @@
 }
 
 /* ---- 2. Prevent input zoom on iOS ---- */
-input, select, textarea {
+input,
+select,
+textarea {
   font-size: 16px !important;
 }
 
@@ -25,159 +27,35 @@ body {
 }
 
 /* ========================================
-   MOBILE ONLY HEAVY OPTIMIZATIONS (≤ 1024px)
+   MOBILE HARDWARE ACCELERATION (GPU SUPPORT)
    ======================================== */
 @media (max-width: 1024px) {
 
-  /* ---- A. Remove backdrop-filter (BIGGEST PERFORMANCE GAIN) ---- */
-  *,
-  *::before,
-  *::after {
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
-  }
-
-  /* Replace glass backgrounds with solid colors */
-  .navbar,
-  .mobile-only-header {
-    background: rgba(5, 5, 5, 0.99) !important;
-  }
-
-  .mobile-menu {
-    background: #080808 !important;
-  }
-
-  .mega-dropdown-content,
-  .search-overlay {
-    background: rgba(8, 8, 8, 0.98) !important;
-  }
-
-  .pdf-modal-overlay {
-    background: rgba(5, 5, 5, 0.96) !important;
-  }
-
-  .news-ticker-container {
-    background: rgba(20, 10, 40, 0.9) !important;
-  }
-
-  /* ---- B. Kill heavy continuous animations ---- */
-
-  /* Rotating border on specialty cards */
-  .specialties-grid .specialty-category-card::before {
-    animation: none !important;
-    background: linear-gradient(45deg, #7b42f6, #00f2ff) !important;
-    opacity: 0.5 !important;
-    filter: none !important;
-  }
-
-  .specialties-grid .specialty-category-card:hover::before {
-    filter: none !important;
-    animation: none !important;
-  }
-
-  /* Rotating border on sidebar links */
-  .sidebar-link-v2-rotating::before,
-  .mobile-link-v2-rotating::before {
-    animation: none !important;
-    background: linear-gradient(135deg, #00f2ff, #7b42f6) !important;
-  }
-
-  /* Shiny badge sweep */
-  .shiny-badge::after {
-    animation: none !important;
-    display: none !important;
-  }
-
-  /* Hero mist float */
-  .hero::after {
-    animation: none !important;
-    background: none !important;
-  }
-
-  /* Pulse glow on links */
-  .sidebar-link-v2-pulse,
-  .mobile-link-v2-pulse {
-    animation: none !important;
-    box-shadow: 0 0 8px rgba(0, 242, 255, 0.15) !important;
-  }
-
-  /* Floating theme button pulse */
-  .theme-floating-btn,
-  .floating-theme-btn-smart {
-    animation: none !important;
-  }
-
-  body.theme-rose .theme-floating-btn {
-    animation: none !important;
-  }
-
-  /* News ticker */
-  .ticker-text {
-    animation-duration: 30s !important;
-  }
-
-  /* Diamond floating animation */
-  @keyframes floating-diamond {
-    0%, 100% { transform: none; filter: none; }
-    50% { transform: translateY(-4px); filter: none; }
-  }
-
-  /* ---- C. Remove body grid dots (background-image overlay) ---- */
-  body::before {
-    display: none !important;
-  }
-
-  /* ---- D. Reduce box-shadows ---- */
-  .file-card {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
-  }
-
-  .specialty-category-card {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
-  }
-
-  .hero-rounded-box {
-    box-shadow: 0 8px 24px rgba(123, 66, 246, 0.2) !important;
-  }
-
-  /* ---- E. Simplify hero pseudo-elements ---- */
-  .hero::before {
-    filter: blur(80px) !important;
-    opacity: 0.1 !important;
-  }
-
-  /* ---- F. Optimize will-change (free GPU memory) ---- */
+  /* استغلال كرت الشاشة لتسريع حركة البطاقات بدلًا من استهلاك المعالج 
+     بدون المساس بخصائص position fixed في الشريط العلوي */
   .file-card,
   .specialty-category-card,
   .feature-card,
   .university-card,
-  .specialty-category-card::before,
-  .sidebar-link-v2-rotating,
-  .mobile-link-v2-rotating {
-    will-change: auto !important;
+  .news-ticker-container,
+  .hero-content,
+  .hero-rounded-box,
+  .glass-box {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform;
   }
 
-  /* ---- G. Touch targets (min 44px for accessibility) ---- */
-  .btn-primary,
-  .btn-secondary,
-  .btn-diamond,
-  .btn-mirror-green,
-  .mobile-link-v2,
-  .sidebar-link-v2,
-  .cat-item-link,
-  .year-link,
-  .filter-tab,
-  .icon-btn,
-  .tbl-btn,
-  .admin-tab,
-  .mobile-category-item,
-  .mobile-drilldown-item {
-    min-height: 44px;
-    display: flex;
-    align-items: center;
+  /* ---- Manage GPU Memory allocation ---- */
+  .sidebar-link-v2-rotating::before,
+  .mobile-link-v2-rotating::before,
+  .shiny-badge::after {
+    will-change: transform, opacity;
   }
 
-  /* ---- H. Faster hover transitions on mobile ---- */
+  /* ---- Faster hover transitions on mobile (since touch doesn't truly hover) ---- */
   .file-card,
   .specialty-category-card,
   .university-card,
@@ -185,20 +63,24 @@ body {
     transition: transform 0.15s ease, box-shadow 0.15s ease !important;
   }
 
-  /* ---- I. Disable hover transforms (no hover on touch) ---- */
-  .file-card:hover { transform: none !important; }
-  .specialty-category-card:hover { transform: none !important; }
-  .specialties-grid .specialty-category-card:hover { transform: none !important; }
-  .university-card:hover { transform: none !important; }
-  .feature-card:hover { transform: none !important; }
-  .btn-primary:hover { transform: none !important; }
+  /* ---- Disable hover transforms (no hover on touch, prevents stuck hover states) ---- */
+  .file-card:hover,
+  .specialty-category-card:hover,
+  .specialties-grid .specialty-category-card:hover,
+  .university-card:hover,
+  .feature-card:hover,
+  .btn-primary:hover {
+    transform: translateZ(0) !important;
+  }
 
-  /* ---- J. Font display optimization ---- */
+  /* ---- Font display optimization ---- */
   @font-face {
     font-display: swap;
   }
 
-} /* end @media (max-width: 1024px) */
+}
+
+/* end @media (max-width: 1024px) */
 
 
 /* ========================================
@@ -372,7 +254,9 @@ body {
     padding: 4px 10px !important;
   }
 
-} /* end @media (max-width: 768px) */
+}
+
+/* end @media (max-width: 768px) */
 
 
 /* ========================================
@@ -388,7 +272,8 @@ body {
     font-size: 1.7rem !important;
   }
 
-  .btn-primary, .btn-secondary {
+  .btn-primary,
+  .btn-secondary {
     padding: 0.6rem 1.1rem !important;
     font-size: 0.88rem !important;
   }
@@ -401,35 +286,207 @@ body {
     font-size: 1.05rem !important;
   }
 
-} /* end @media (max-width: 380px) */
-
-
+}
 /* ========================================
-   PERFORMANCE: prefers-reduced-motion
+   ROSE THEME (BEAUTIFUL PINK & WHITE) FOR MOBILE & DESKTOP
+   ����� ������ ������ ���� ���� ����� ���
    ======================================== */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .ticker-text {
-    animation: none !important;
-  }
+body.theme-rose,
+body.theme-rose * {
+  /* No harsh black backgrounds! */
+  box-shadow: none;
 }
 
+body.theme-rose {
+  background-color: #ffffff !important;
+  color: #ff1493 !important;
+}
 
-/* ========================================
-   PERFORMANCE: Low-end device (save-data)
-   ======================================== */
-@media (prefers-reduced-data: reduce) {
-  .hero::before,
-  .hero::after,
-  body::before {
-    display: none !important;
-  }
+/* Base text */
+body.theme-rose p, 
+body.theme-rose span, 
+body.theme-rose div {
+  color: #c71585; /* Soft dark pink for reading */
+}
+
+/* Titles */
+body.theme-rose h1, 
+body.theme-rose h2, 
+body.theme-rose h3, 
+body.theme-rose h4, 
+body.theme-rose h5, 
+body.theme-rose .top-banner-title {
+  color: #ff1493 !important;
+  text-shadow: none !important;
+}
+
+/* Headers and Navigations */
+body.theme-rose .navbar,
+body.theme-rose .mobile-only-header,
+body.theme-rose .mobile-menu {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  border-bottom: 2px solid rgba(255, 20, 147, 0.2) !important;
+  border-left: 1px solid rgba(255, 20, 147, 0.2) !important;
+  box-shadow: 0 4px 15px rgba(255, 20, 147, 0.1) !important;
+}
+
+/* Cards (Specialties, Universities, Files) */
+body.theme-rose .file-card,
+body.theme-rose .specialty-category-card,
+body.theme-rose .feature-card,
+body.theme-rose .university-card,
+body.theme-rose .hero-rounded-box,
+body.theme-rose .glass-box,
+body.theme-rose .message-card {
+  background: rgba(255, 250, 252, 0.95) !important;
+  border: 1px solid rgba(255, 20, 147, 0.15) !important;
+  box-shadow: 0 8px 25px rgba(255, 20, 147, 0.08) !important;
+  border-radius: 20px !important;
+}
+body.theme-rose .file-card:before,
+body.theme-rose .specialty-category-card:after,
+body.theme-rose .specialty-category-card:before {
+  display: none !important; /* Remove dark neon borders completely */
+}
+
+/* Links & Buttons */
+body.theme-rose .cat-item-link,
+body.theme-rose .sidebar-link-v2-rotating,
+body.theme-rose .sidebar-link-v2-slide,
+body.theme-rose .mobile-link-v2-rotating,
+body.theme-rose .mobile-link,
+body.theme-rose .mobile-sub-link {
+  background: #ffffff !important;
+  color: #ff1493 !important;
+  border: 1px solid rgba(255, 20, 147, 0.2) !important;
+  box-shadow: 0 4px 10px rgba(255, 20, 147, 0.05) !important;
+  border-radius: 14px !important;
+}
+body.theme-rose .cat-item-link:hover,
+body.theme-rose .mobile-link:hover {
+  background: linear-gradient(135deg, #ff1493, #ff69b4) !important;
+  color: #ffffff !important;
+}
+body.theme-rose .sidebar-link-v2-rotating:after,
+body.theme-rose .mobile-link-v2-rotating:after {
+  background: #ffffff !important;
+}
+body.theme-rose .sidebar-link-v2-rotating:before,
+body.theme-rose .mobile-link-v2-rotating:before {
+  background: conic-gradient(transparent, transparent, transparent, #ff1493, transparent) !important;
+}
+
+/* Top search banner */
+body.theme-rose .top-banner-rect,
+body.theme-rose .search-overlay {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 2px solid rgba(255, 20, 147, 0.3) !important;
+}
+
+/* Inputs */
+body.theme-rose input,
+body.theme-rose select,
+body.theme-rose textarea {
+  background: #fff0f5 !important;
+  border: 1px solid rgba(255, 20, 147, 0.3) !important;
+  color: #ff1493 !important;
+}
+
+body.theme-rose input::placeholder {
+  color: rgba(255, 20, 147, 0.6) !important;
+}
+
+/* Primary/Gradient Buttons */
+body.theme-rose .btn-primary,
+body.theme-rose .btn-diamond,
+body.theme-rose .btn-mirror-green,
+body.theme-rose .hero-badge {
+  background: linear-gradient(135deg, #ff1493, #ff69b4) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3) !important;
+}
+
+/* Overlays & Modals */
+body.theme-rose .pdf-modal-content,
+body.theme-rose .pdf-header,
+body.theme-rose .form-card,
+body.theme-rose .admin-panel,
+body.theme-rose .mega-dropdown-content,
+body.theme-rose .mega-nav-details {
+  background: #ffffff !important;
+  border: 1px solid rgba(255, 20, 147, 0.15) !important;
+  box-shadow: 0 10px 40px rgba(255, 20, 147, 0.1) !important;
+}
+
+/* Tickers & Labels */
+body.theme-rose .news-ticker-container {
+  background: rgba(255, 20, 147, 0.05) !important;
+  border-color: rgba(255, 20, 147, 0.2) !important;
+}
+body.theme-rose .news-label {
+  background: #ff1493 !important;
+  color: #ffffff !important;
+}
+body.theme-rose .ticker-text {
+  color: #ff1493 !important;
+}
+
+/* Footer */
+body.theme-rose .footer {
+  background: #fff0f5 !important;
+  color: #c71585 !important;
+  border-top: 1px solid rgba(255, 20, 147, 0.2) !important;
+}
+body.theme-rose .footer-heading {
+  color: #ff1493 !important;
+}
+body.theme-rose .footer-links a {
+  color: #c71585 !important;
+}
+
+/* Floating Theme Button */
+body.theme-rose .floating-theme-btn-smart {
+  background: #ffffff !important;
+  border: 2px solid #ff1493 !important;
+  box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4) !important;
+}
+body.theme-rose .floating-theme-btn-smart svg {
+  color: #ff1493 !important;
+}
+
+/* Extra Rose Theme Overrides for Complex Elements */
+body.theme-rose .cta-card {
+  background: linear-gradient(135deg, #fff0f5, #ffb6c1, #ff1493) !important;
+  box-shadow: 0 20px 50px rgba(255, 20, 147, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+body.theme-rose .cta-card:after {
+  background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.8) 0%, transparent 60%) !important;
+}
+body.theme-rose .cta-content h2,
+body.theme-rose .cta-content p {
+  color: #fff !important;
+  text-shadow: 0 2px 10px rgba(255, 20, 147, 0.5) !important;
+}
+body.theme-rose .cta-btns .btn-primary {
+  background: #ffffff !important;
+  color: #ff1493 !important;
+}
+body.theme-rose .cta-btns .btn-secondary {
+  border-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+body.theme-rose .mirror-tag-rect {
+  background: #ffffff !important;
+  border: 1px solid rgba(255, 20, 147, 0.3) !important;
+  color: #ff1493 !important;
+}
+body.theme-rose .shiny-badge {
+  background: linear-gradient(135deg, #ff1493, #ff69b4) !important;
+  color: #ffffff !important;
+  border-color: #ff1493 !important;
 }
