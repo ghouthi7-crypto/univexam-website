@@ -287,206 +287,221 @@ body {
   }
 
 }
+
 /* ========================================
    ROSE THEME (BEAUTIFUL PINK & WHITE) FOR MOBILE & DESKTOP
-   ÇáæÖÚ ÇáÒåÑí ÈÊÕãíã Ìãíá ÃÈíÖ æÒåÑí ÝÞØ
+   Ø§Ù„ÙˆØ¶Ø¹ Ø§Ù„Ø²Ù‡Ø±ÙŠ Ø§Ù„Ù…Ø®ØµØµ Ù„Ù„Ø·Ø§Ù„Ø¨Ø§Øª (ÙˆØ±Ø¯ÙŠ ÙˆØ£Ø¨ÙŠØ¶ Ù†Ø§ØµØ¹ Ù…Ø¹ Ù„Ù…Ø³Ø§Øª Ù†Ø§Ø¹Ù…Ø©)
    ======================================== */
-body.theme-rose,
-body.theme-rose * {
-  /* No harsh black backgrounds! */
-  box-shadow: none;
-}
 
+/* Soften all elements to be cute and feminine */
 body.theme-rose {
-  background-color: #ffffff !important;
-  color: #ff1493 !important;
+  background-color: #fffafc !important; /* Soft rose white */
+  background-image: radial-gradient(circle at 15% 50%, rgba(255, 105, 180, 0.08), transparent 25%),
+                    radial-gradient(circle at 85% 30%, rgba(255, 20, 147, 0.06), transparent 25%) !important;
+  color: #d11370 !important;
+  font-family: 'Outfit', 'Cairo', sans-serif !important;
 }
 
-/* Base text */
-body.theme-rose p, 
-body.theme-rose span, 
-body.theme-rose div {
-  color: #c71585; /* Soft dark pink for reading */
-}
-
-/* Titles */
-body.theme-rose h1, 
-body.theme-rose h2, 
-body.theme-rose h3, 
-body.theme-rose h4, 
-body.theme-rose h5, 
+/* Titles and Headers */
+body.theme-rose h1,
+body.theme-rose h2,
+body.theme-rose h3,
+body.theme-rose h4,
+body.theme-rose h5,
 body.theme-rose .top-banner-title {
   color: #ff1493 !important;
-  text-shadow: none !important;
+  text-shadow: 0 2px 10px rgba(255, 20, 147, 0.15) !important;
+  font-weight: 800 !important;
 }
 
-/* Headers and Navigations */
+body.theme-rose p,
+body.theme-rose span:not(.shiny-badge):not(.news-label),
+body.theme-rose div {
+  color: #b0105e; /* Elegant deep magenta-pink */
+}
+
+/* Navbar & Mobile Header (Chic Glassmorphism) */
 body.theme-rose .navbar,
-body.theme-rose .mobile-only-header,
-body.theme-rose .mobile-menu {
-  background: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(15px) !important;
-  -webkit-backdrop-filter: blur(15px) !important;
-  border-bottom: 2px solid rgba(255, 20, 147, 0.2) !important;
-  border-left: 1px solid rgba(255, 20, 147, 0.2) !important;
-  box-shadow: 0 4px 15px rgba(255, 20, 147, 0.1) !important;
+body.theme-rose .mobile-only-header {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(25px) !important;
+  -webkit-backdrop-filter: blur(25px) !important;
+  border-bottom: 1px solid rgba(255, 105, 180, 0.3) !important;
+  box-shadow: 0 10px 30px rgba(255, 105, 180, 0.1) !important;
 }
 
-/* Cards (Specialties, Universities, Files) */
+/* Sidebar Menu (Soft Pink Glass) */
+body.theme-rose .mobile-menu,
+body.theme-rose .mega-nav-sidebar {
+  background: rgba(255, 250, 252, 0.98) !important;
+  border-left: 2px solid rgba(255, 105, 180, 0.2) !important;
+  box-shadow: -10px 0 40px rgba(255, 20, 147, 0.08) !important;
+}
+
+/* Cards & Containers (Cute and Bubbly) */
 body.theme-rose .file-card,
 body.theme-rose .specialty-category-card,
 body.theme-rose .feature-card,
 body.theme-rose .university-card,
-body.theme-rose .hero-rounded-box,
+body.theme-rose .message-card,
 body.theme-rose .glass-box,
-body.theme-rose .message-card {
-  background: rgba(255, 250, 252, 0.95) !important;
-  border: 1px solid rgba(255, 20, 147, 0.15) !important;
-  box-shadow: 0 8px 25px rgba(255, 20, 147, 0.08) !important;
-  border-radius: 20px !important;
-}
-body.theme-rose .file-card:before,
-body.theme-rose .specialty-category-card:after,
-body.theme-rose .specialty-category-card:before {
-  display: none !important; /* Remove dark neon borders completely */
+body.theme-rose .admin-panel,
+body.theme-rose .form-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(255, 182, 193, 0.6) !important;
+  border-radius: 28px !important; /* Extremely rounded for a softer look */
+  box-shadow: 0 12px 35px rgba(255, 20, 147, 0.06), inset 0 0 0 1px rgba(255, 255, 255, 1) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
 }
 
-/* Links & Buttons */
+/* Remove default dark glowing pseudo-elements from cards */
+body.theme-rose .file-card:before,
+body.theme-rose .file-card:after,
+body.theme-rose .specialty-category-card:after,
+body.theme-rose .specialty-category-card:before {
+  display: none !important;
+}
+
+/* Link Cards, Categories, and Inputs (Flirty & Bright) */
 body.theme-rose .cat-item-link,
 body.theme-rose .sidebar-link-v2-rotating,
 body.theme-rose .sidebar-link-v2-slide,
 body.theme-rose .mobile-link-v2-rotating,
 body.theme-rose .mobile-link,
-body.theme-rose .mobile-sub-link {
-  background: #ffffff !important;
-  color: #ff1493 !important;
-  border: 1px solid rgba(255, 20, 147, 0.2) !important;
-  box-shadow: 0 4px 10px rgba(255, 20, 147, 0.05) !important;
-  border-radius: 14px !important;
-}
-body.theme-rose .cat-item-link:hover,
-body.theme-rose .mobile-link:hover {
-  background: linear-gradient(135deg, #ff1493, #ff69b4) !important;
-  color: #ffffff !important;
-}
-body.theme-rose .sidebar-link-v2-rotating:after,
-body.theme-rose .mobile-link-v2-rotating:after {
-  background: #ffffff !important;
-}
-body.theme-rose .sidebar-link-v2-rotating:before,
-body.theme-rose .mobile-link-v2-rotating:before {
-  background: conic-gradient(transparent, transparent, transparent, #ff1493, transparent) !important;
-}
-
-/* Top search banner */
-body.theme-rose .top-banner-rect,
-body.theme-rose .search-overlay {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border: 2px solid rgba(255, 20, 147, 0.3) !important;
-}
-
-/* Inputs */
+body.theme-rose .mobile-sub-link,
+body.theme-rose .search-input,
 body.theme-rose input,
-body.theme-rose select,
-body.theme-rose textarea {
-  background: #fff0f5 !important;
-  border: 1px solid rgba(255, 20, 147, 0.3) !important;
+body.theme-rose select {
+  background: #fff5f8 !important; /* Extremely light pink background */
   color: #ff1493 !important;
+  border: 1px solid rgba(255, 105, 180, 0.4) !important;
+  border-radius: 20px !important;
+  box-shadow: inset 0 2px 4px rgba(255, 105, 180, 0.05) !important;
+  font-weight: 600 !important;
 }
 
-body.theme-rose input::placeholder {
-  color: rgba(255, 20, 147, 0.6) !important;
+/* Hover States for links */
+body.theme-rose .cat-item-link:hover,
+body.theme-rose .mobile-link:hover,
+body.theme-rose .sidebar-link:hover {
+  background: linear-gradient(135deg, #ff69b4, #ff1493) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(255, 20, 147, 0.25) !important;
+  transform: translateY(-2px) !important;
 }
 
-/* Primary/Gradient Buttons */
+/* Search Box specific */
+body.theme-rose .search-input::placeholder {
+  color: rgba(255, 105, 180, 0.5) !important;
+}
+body.theme-rose .search-icon {
+  color: #ff69b4 !important;
+}
+
+/* Primary Beautiful Gradient Buttons */
 body.theme-rose .btn-primary,
 body.theme-rose .btn-diamond,
 body.theme-rose .btn-mirror-green,
 body.theme-rose .hero-badge {
-  background: linear-gradient(135deg, #ff1493, #ff69b4) !important;
+  background: linear-gradient(135deg, #ff1493, #ff69b4, #ffb6c1) !important;
   color: #ffffff !important;
   border: none !important;
+  border-radius: 50px !important; /* Pill shaped cute buttons */
+  box-shadow: 0 8px 25px rgba(255, 20, 147, 0.35), inset 0 2px 5px rgba(255, 255, 255, 0.4) !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.5px !important;
+}
+body.theme-rose .btn-primary:active,
+body.theme-rose .btn-diamond:active {
+  transform: scale(0.95) !important;
   box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3) !important;
 }
 
-/* Overlays & Modals */
-body.theme-rose .pdf-modal-content,
-body.theme-rose .pdf-header,
-body.theme-rose .form-card,
-body.theme-rose .admin-panel,
-body.theme-rose .mega-dropdown-content,
-body.theme-rose .mega-nav-details {
+/* Secondary Buttons */
+body.theme-rose .btn-secondary {
   background: #ffffff !important;
-  border: 1px solid rgba(255, 20, 147, 0.15) !important;
-  box-shadow: 0 10px 40px rgba(255, 20, 147, 0.1) !important;
+  color: #ff1493 !important;
+  border: 2px solid #ff69b4 !important;
+  border-radius: 50px !important;
 }
 
-/* Tickers & Labels */
+/* Badges and Tickers */
 body.theme-rose .news-ticker-container {
-  background: rgba(255, 20, 147, 0.05) !important;
-  border-color: rgba(255, 20, 147, 0.2) !important;
+  background: #fff0f5 !important;
+  border: 1px solid rgba(255, 105, 180, 0.3) !important;
+  border-radius: 50px !important;
 }
-body.theme-rose .news-label {
+body.theme-rose .news-label,
+body.theme-rose .shiny-badge {
+  background: linear-gradient(135deg, #ff1493, #ff69b4) !important;
+  color: #ffffff !important;
+  border-radius: 20px !important;
+  box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3) !important;
+}
+body.theme-rose .ticker-text {
+  color: #d11370 !important;
+}
+
+/* CTA Card */
+body.theme-rose .cta-card {
+  background: linear-gradient(135deg, #fff0f5, #ffe4e1, #ffb6c1) !important;
+  box-shadow: 0 20px 50px rgba(255, 105, 180, 0.2) !important;
+  border: 1px solid #ffffff !important;
+  border-radius: 40px !important;
+}
+body.theme-rose .cta-content h2 {
+  color: #ff1493 !important;
+}
+body.theme-rose .cta-content p {
+  color: #d11370 !important;
+}
+body.theme-rose .cta-btns .btn-primary {
   background: #ff1493 !important;
   color: #ffffff !important;
 }
-body.theme-rose .ticker-text {
+body.theme-rose .cta-btns .btn-secondary {
+  border-color: #ff1493 !important;
+}
+/* Additional Feminine Touches */
+body.theme-rose .cta-btns .btn-secondary {
+  background: #ffffff !important;
   color: #ff1493 !important;
-}
-
-/* Footer */
-body.theme-rose .footer {
-  background: #fff0f5 !important;
-  color: #c71585 !important;
-  border-top: 1px solid rgba(255, 20, 147, 0.2) !important;
-}
-body.theme-rose .footer-heading {
-  color: #ff1493 !important;
-}
-body.theme-rose .footer-links a {
-  color: #c71585 !important;
+  border-width: 2px !important;
 }
 
 /* Floating Theme Button */
 body.theme-rose .floating-theme-btn-smart {
   background: #ffffff !important;
-  border: 2px solid #ff1493 !important;
-  box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4) !important;
+  border: 3px solid #ff69b4 !important;
+  box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4) !important;
 }
 body.theme-rose .floating-theme-btn-smart svg {
   color: #ff1493 !important;
+  filter: drop-shadow(0 2px 4px rgba(255, 20, 147, 0.3)) !important;
 }
 
-/* Extra Rose Theme Overrides for Complex Elements */
-body.theme-rose .cta-card {
-  background: linear-gradient(135deg, #fff0f5, #ffb6c1, #ff1493) !important;
-  box-shadow: 0 20px 50px rgba(255, 20, 147, 0.2) !important;
-  border: 1px solid rgba(255, 255, 255, 0.5) !important;
-}
-body.theme-rose .cta-card:after {
-  background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.8) 0%, transparent 60%) !important;
-}
-body.theme-rose .cta-content h2,
-body.theme-rose .cta-content p {
-  color: #fff !important;
-  text-shadow: 0 2px 10px rgba(255, 20, 147, 0.5) !important;
-}
-body.theme-rose .cta-btns .btn-primary {
+/* Footer Details */
+body.theme-rose .footer {
   background: #ffffff !important;
   color: #ff1493 !important;
+  border-top: 2px dashed rgba(255, 182, 193, 0.5) !important;
 }
-body.theme-rose .cta-btns .btn-secondary {
-  border-color: #ffffff !important;
-  background: rgba(255, 255, 255, 0.2) !important;
-  color: #ffffff !important;
-}
-body.theme-rose .mirror-tag-rect {
-  background: #ffffff !important;
-  border: 1px solid rgba(255, 20, 147, 0.3) !important;
+body.theme-rose .footer-heading {
   color: #ff1493 !important;
 }
-body.theme-rose .shiny-badge {
-  background: linear-gradient(135deg, #ff1493, #ff69b4) !important;
-  color: #ffffff !important;
-  border-color: #ff1493 !important;
+body.theme-rose .footer-links a {
+  color: #d11370 !important;
+  font-weight: 600 !important;
+}
+
+/* Cute icons overriding */
+body.theme-rose svg, 
+body.theme-rose .file-icon,
+body.theme-rose .cat-icon {
+  color: #ff1493 !important;
+}
+body.theme-rose .cat-icon-wrapper,
+body.theme-rose .file-icon {
+  background: #fff0f5 !important;
+  border: 1px solid rgba(255, 105, 180, 0.3) !important;
 }
