@@ -1,4 +1,9 @@
 # Cloudflare Pages Redirects
 # Ensure API functions take precedence over the SPA fallback
-/api/*  /api/*  200
-/*      /index.html 200
+/api/*      /api/*        200
+
+# Service Worker must be served from root scope
+/sw.js       /sw.js        200
+
+# SPA fallback
+/*           /index.html   200
