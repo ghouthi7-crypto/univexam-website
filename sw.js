@@ -3,7 +3,7 @@
    Cache-first for static assets, Network-first for API
    ================================================ */
 
-const CACHE_VERSION = 'univexam-v1';
+const CACHE_VERSION = 'univexam-v2';
 const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
@@ -23,10 +23,20 @@ const PRECACHE_ASSETS = [
 
 /* ---- INSTALL: pre-cache critical assets ---- */
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => {
-      return cache.addAll(PRECACHE_ASSETS);
-    }).then(() => self.skipWaiting())
+      // Don't wait for all to cache, do it silently to not block installation
+      PRECACHE_ASSETS.forEach(url => {
+        fetch(url).then(response => {
+           // Basic sanity check: ensure JS/CSS aren't actually HTML fallbacks
+           const ct = response.headers.get('content-type') || '';
+           if (url.endsWith('.js') && !ct.includes('javascript')) return;
+           if (url.endsWith('.css') && !ct.includes('css')) return;
+           if (response.ok) cache.put(url, response);
+        }).catch(e => console.warn('Precache failed for', url, e));
+      });
+    })
   );
 });
 
@@ -72,7 +82,7 @@ self.addEventListener('fetch', (event) => {
     url.pathname.startsWith('/assets/') ||
     url.pathname.match(/\.(js|css|woff2?|ttf|svg|png|jpg|webp|ico)$/)
   ) {
-    event.respondWith(cacheFirst(request, STATIC_CACHE));
+    event.respondWith(cacheFirstSafely(request, STATIC_CACHE));
     return;
   }
 
@@ -90,14 +100,28 @@ self.addEventListener('fetch', (event) => {
    STRATEGY HELPERS
    ================================================ */
 
-async function cacheFirst(request, cacheName) {
+async function cacheFirstSafely(request, cacheName) {
   const cached = await caches.match(request);
-  if (cached) return cached;
+  if (cached) {
+    // Sanity check: don't serve HTML from a JS/CSS request (from bad previous cache)
+    const ct = cached.headers.get('content-type') || '';
+    if (request.url.includes('.js') && !ct.includes('javascript')) { /* drop cache */ }
+    else if (request.url.includes('.css') && !ct.includes('css')) { /* drop cache */ }
+    else return cached;
+  }
   try {
     const response = await fetch(request);
     if (response.ok) {
-      const cache = await caches.open(cacheName);
-      cache.put(request, response.clone());
+      const ct = response.headers.get('content-type') || '';
+      // Prevent caching HTML fallbacks for assets
+      let shouldCache = true;
+      if (request.url.includes('.js') && !ct.includes('javascript')) shouldCache = false;
+      if (request.url.includes('.css') && !ct.includes('css')) shouldCache = false;
+      
+      if (shouldCache) {
+        const cache = await caches.open(cacheName);
+        cache.put(request, response.clone());
+      }
     }
     return response;
   } catch {
