@@ -3,7 +3,7 @@
    Cache-first for static assets, Network-first for API
    ================================================ */
 
-const CACHE_VERSION = 'univexam-v2';
+const CACHE_VERSION = 'univexam-v3';
 const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
@@ -15,10 +15,10 @@ const PRECACHE_ASSETS = [
   '/favicon.svg',
   '/assets/index-DBtfQiGf.css',
   '/assets/mobile-optimizations.css',
-  '/assets/index-Dx2qVXEP.js',
-  '/assets/vendor-core-B0Uj3pj8.js',
-  '/assets/vendor-Dv0Yv6_k.js',
-  '/assets/vendor-icons-CUWesVpR.js',
+  '/assets/index-CIVDuFUM.js',
+  '/assets/vendor-core-U3IEc83k.js',
+  '/assets/vendor-D-qwv2yk.js',
+  '/assets/vendor-icons-Cf9DQCLA.js',
 ];
 
 /* ---- INSTALL: pre-cache critical assets ---- */
