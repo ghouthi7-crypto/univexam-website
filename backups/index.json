@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-04-02",
+    "timestamp": "2026-04-02T06:17:24.838324+00:00",
+    "total_rows": 0,
+    "tables": {
+      "universities": 0,
+      "specialties": 0,
+      "modules": 0,
+      "documents": 0,
+      "moderators": 0,
+      "site_content": 0,
+      "messages": 0,
+      "moderator_applications": 0
+    }
+  },
+  {
     "date": "2026-04-01",
     "timestamp": "2026-04-01T07:03:50.862705+00:00",
     "total_rows": 0,
