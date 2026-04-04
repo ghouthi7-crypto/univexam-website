@@ -1,0 +1,22 @@
+{
+  "name": "UNIVEXAM - كل مايخص الطالب الجامعي",
+  "short_name": "UNIVEXAM",
+  "description": "المنصة الجزائرية الأولى لمشاركة ملفات PDF الجامعية",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020202",
+  "theme_color": "#7b42f6",
+  "dir": "rtl",
+  "lang": "ar",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "utilities"],
+  "prefer_related_applications": false
+}
