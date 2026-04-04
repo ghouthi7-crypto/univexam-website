@@ -1,24 +1,19 @@
-/* ================================================
+﻿/* ================================================
    UNIVEXAM — Service Worker
    Cache-first for static assets, Network-first for API
    ================================================ */
 
-const CACHE_VERSION = 'univexam-v3';
+const CACHE_VERSION = 'univexam-v20260404225231';
 const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
-/* Assets to pre-cache on install */
+/* Assets to pre-cache (only core files that don't have hashes in names) */
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
   '/favicon.svg',
-  '/assets/index-DBtfQiGf.css',
-  '/assets/mobile-optimizations.css',
-  '/assets/index-CIVDuFUM.js',
-  '/assets/vendor-core-U3IEc83k.js',
-  '/assets/vendor-D-qwv2yk.js',
-  '/assets/vendor-icons-Cf9DQCLA.js',
+  '/assets/mobile-optimizations.css'
 ];
 
 /* ---- INSTALL: pre-cache critical assets ---- */
