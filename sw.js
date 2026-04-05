@@ -3,7 +3,7 @@
    Cache-first for static assets, Network-first for API
    ================================================ */
 
-const CACHE_VERSION = 'univexam-v20260405013829';
+const CACHE_VERSION = 'univexam-v20260405015108';
 const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
