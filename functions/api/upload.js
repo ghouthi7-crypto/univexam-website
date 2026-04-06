@@ -1,4 +1,4 @@
-// node_modules/aws4fetch/dist/aws4fetch.esm.mjs
+// ../node_modules/aws4fetch/dist/aws4fetch.esm.mjs
 var encoder = new TextEncoder();
 var HOST_SERVICES = {
   appstream2: "appstream",
@@ -277,7 +277,7 @@ function guessServiceRegion(url, headers) {
   return [HOST_SERVICES[service] || service, region || ""];
 }
 
-// functions/api/upload.js
+// ../functions/api/upload.js
 var ACCOUNT_ID = "cb691857ed2d2baab866959c3678a53b";
 var ACCESS_KEY_ID = "4467d0b297a20bb797e2a0f8d3c0e50f";
 var SECRET_ACCESS_KEY = "b311db736a4cfc4200b70d7c18a54958fce17026ee7542dd1b89c7e5398cacb7";
