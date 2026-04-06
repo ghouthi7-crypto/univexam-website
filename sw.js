@@ -1,9 +1,9 @@
 ﻿/* ================================================
-   UNIVEXAM — Service Worker
+   UNIVEXAM � Service Worker
    Cache-first for static assets, Network-first for API
    ================================================ */
 
-const CACHE_VERSION = 'univexam-v20260405222300';
+const CACHE_VERSION = 'univexam-v20260406190406';
 const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
@@ -56,7 +56,7 @@ self.addEventListener('fetch', (event) => {
   /* Skip non-GET requests */
   if (request.method !== 'GET') return;
 
-  /* Skip cross-origin API calls (Supabase, R2) — always fresh */
+  /* Skip cross-origin API calls (Supabase, R2) � always fresh */
   if (
     url.hostname.includes('supabase.co') ||
     url.hostname.includes('r2.dev') ||
@@ -72,7 +72,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  /* Static assets (JS, CSS, fonts, images) → Cache-first */
+  /* Static assets (JS, CSS, fonts, images) ? Cache-first */
   if (
     url.pathname.startsWith('/assets/') ||
     url.pathname.match(/\.(js|css|woff2?|ttf|svg|png|jpg|webp|ico)$/)
@@ -81,13 +81,13 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  /* HTML pages → Network-first with cache fallback */
+  /* HTML pages ? Network-first with cache fallback */
   if (request.headers.get('accept')?.includes('text/html')) {
     event.respondWith(networkFirstWithFallback(request));
     return;
   }
 
-  /* Everything else → Stale-while-revalidate */
+  /* Everything else ? Stale-while-revalidate */
   event.respondWith(staleWhileRevalidate(request));
 });
 
