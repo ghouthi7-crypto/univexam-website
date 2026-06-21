@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-06-21",
+    "timestamp": "2026-06-21T06:47:05.341694+00:00",
+    "total_rows": 0,
+    "tables": {
+      "universities": 0,
+      "specialties": 0,
+      "modules": 0,
+      "documents": 0,
+      "moderators": 0,
+      "site_content": 0,
+      "messages": 0,
+      "moderator_applications": 0
+    }
+  },
+  {
     "date": "2026-06-20",
     "timestamp": "2026-06-20T06:16:29.274865+00:00",
     "total_rows": 0,
@@ -422,21 +437,6 @@
   {
     "date": "2026-05-23",
     "timestamp": "2026-05-23T05:36:28.899565+00:00",
-    "total_rows": 0,
-    "tables": {
-      "universities": 0,
-      "specialties": 0,
-      "modules": 0,
-      "documents": 0,
-      "moderators": 0,
-      "site_content": 0,
-      "messages": 0,
-      "moderator_applications": 0
-    }
-  },
-  {
-    "date": "2026-05-22",
-    "timestamp": "2026-05-22T06:02:50.490287+00:00",
     "total_rows": 0,
     "tables": {
       "universities": 0,
